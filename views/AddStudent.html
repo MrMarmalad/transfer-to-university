@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+		<meta charset="utf-8" />
+      <title>Перевод и восстановление студентов</title>
+	</head>
+	<body>
+	<form>
+  <div class="form-group">
+    <label for="surname">Фамилия</label>
+    <input type="text" class="form-control" id="surname"  placeholder="Введите имя студента">
+  </div>
+  <div class="form-group">
+    <label for="name">Имя</label>
+    <input type="text" class="form-control" id="name" placeholder="Введите фамилию студента">
+  </div>
+  <div class="form-group">
+    <label for="patronymic">Отчество</label>
+    <input type="text" class="form-control" id="patronymic"  placeholder="Введите отчество студента">
+  </div>
+  <div class="form-group" id="discipline[]">
+	<div class="row">
+		<div class="col">
+			<input type="text" class="form-control" placeholder="Название дисциплины">
+		</div>
+		
+		<div class="col form-group">
+			<select id="type" class="form-control">
+				<option selected>Тип аттестации</option>
+				<option>Зачет</option>
+				<option>Дифференцированный зачет</option>
+				<option>Экзамен</option>
+			</select>
+		</div>
+		<!-- здесь будет оценка (если зачет, то ничего, если дифф зачет/экзамен, то уд/хор/отл)
+		<!--<div class="col form-group">
+			<select id="type" class="form-control">
+				<option selected>Тип аттестации</option>
+				<option>Зачет</option>
+				<option>Дифференцированный зачет</option>
+				<option>Экзамен</option>
+			</select>
+		</div>-->
+		
+		<!-- Навесить сюда обработчик на добавление discipline[]
+		<button class="btn btn-primary">Добавить дисциплину</button>
+		-->
+	</div>
+  </div>
+  
+  
+  <button type="submit" class="btn btn-primary">Отправить</button>
+</form>
+	</body>
+</html>
