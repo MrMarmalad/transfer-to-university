@@ -1,58 +1,192 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-		<meta charset="utf-8" />
-      <title>Перевод и восстановление студентов</title>
-	</head>
-	<body>
-	<form>
-  <div class="form-group">
-    <label for="surname">Фамилия</label>
-    <input type="text" class="form-control" id="surname"  placeholder="Введите имя студента">
-  </div>
-  <div class="form-group">
-    <label for="name">Имя</label>
-    <input type="text" class="form-control" id="name" placeholder="Введите фамилию студента">
-  </div>
-  <div class="form-group">
-    <label for="patronymic">Отчество</label>
-    <input type="text" class="form-control" id="patronymic"  placeholder="Введите отчество студента">
-  </div>
-  <div class="form-group" >
-	<label>Дисциплины студента</label>
-	<div class="form-row"	id="discipline[]">
-		<div class="col">
-			<input type="text" class="form-control" placeholder="Название дисциплины">
-		</div>
-		
-		<div class="col form-group">
-			<select id="type" class="form-control">
-				<option selected>Тип аттестации</option>
-				<option>Зачет</option>
-				<option>Дифференцированный зачет</option>
-				<option>Экзамен</option>
-			</select>
-		</div>
-		<!-- здесь будет оценка (если зачет, то ничего, если дифф зачет/экзамен, то уд/хор/отл)
-		<!--<div class="col form-group">
-			<select id="type" class="form-control">
-				<option selected>Тип аттестации</option>
-				<option>Зачет</option>
-				<option>Дифференцированный зачет</option>
-				<option>Экзамен</option>
-			</select>
-		</div>-->
-		
+<html lang="ru">
+<head>
+	<meta charset="utf-8">
+    	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.js "></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+	<title></title>
+</head>
+<body>
+
+
+	<script type="text/javascript">
+
+		function clearNode(node)
+		{
+				node.innerHTML='';
+		}
+
+		function addselectFORzachet() {
+		let node = document.getElementById("mark");
+		clearNode(node);
+
+	 	var x = document.createElement("SELECT");
+	 	x.setAttribute("id", "newselect");
+		x.setAttribute("class", "form-control");
+
+	 	var z = document.createElement("OPTION");
+	    z.setAttribute("id", "1");
+	    var t = document.createTextNode("зачет");
+	    z.appendChild(t);
+
+	    var n = document.createElement("OPTION");
+	    n.setAttribute("id", "2");
+	    var p = document.createTextNode("незачет");
+	    n.appendChild(p);
+			node.append(x);
+	   	document.getElementById("newselect").appendChild(z);
+	   	document.getElementById("newselect").appendChild(n);
+	}
+
+		function addselectFORexam() {
+			let node = document.getElementById("mark");
+			clearNode(node);
+
+			var x = document.createElement("select");
+			x.setAttribute("id", "newselect");
+			x.setAttribute("class", "form-control");
+
+			var z = document.createElement("option");
+			z.setAttribute("id", "1");
+		    var t = document.createTextNode("отл");
+		    z.appendChild(t);
+		    var n = document.createElement("OPTION");
+		    n.setAttribute("id", "2");
+		    var p = document.createTextNode("хор");
+		    n.appendChild(p);
+		    var l = document.createElement("OPTION");
+		   	l.setAttribute("id", "3");
+		    var d = document.createTextNode("удовл");
+		    l.appendChild(d);
+				node.appendChild(x);
+		    document.getElementById("newselect").appendChild(z);
+	   		document.getElementById("newselect").appendChild(n);
+	   		document.getElementById("newselect").appendChild(l);
+	}
+
+	function change() {
+		var selectoption = document.getElementById("type").value;
+
+			switch (selectoption)
+			{
+				case "1" : addselectFORzachet();
+
+				break;
+				case "2" :
+				case "3" : addselectFORexam();
+
+				break;
+			}
+
+	}
+
+	function addDiscipline()
+	{
+		// let node = `<div class="form-group" id="discipline[]">
+		// 			<div class="row">
+		// 				<div class="col-md-3">
+		// 					<input type="text" class="form-control" placeholder="Название дисциплины">
+		// 				</div>
+		//
+		// 				<div id = "foraddselect" class="col-md-2 form-group">
+		// 					<select id="type" class="form-control" onchange="change()">
+		// 						<option selected>Тип аттестации</option>
+		// 						<option value="1">Зачет</option>
+		// 						<option value="2">Дифференцированный зачет</option>
+		// 						<option value="3">Экзамен</option>
+		// 					</select>
+		// 				</div>
+		// 				<div id="mark" class="col-md-2">
+		//
+		// 				</div>
+		// 			</div>
+		//   	</div>`;
+		let inputStr = `<div class="col-md-3">
+		 					<input type="text" class="form-control" placeholder="Название дисциплины">
+		 				</div>`;
+		let options = `<option value="0" selected>Тип аттестации</option>
+		 							<option value="1">Зачет</option>
+		 							<option value="2">Дифференцированный зачет</option>
+		 							<option value="3">Экзамен</option>`;
+
+		let node = document.createElement('div');
+
+		node.setAttribute("class","form-group");
+		node.setAttribute("id","discipline[]");
+
+		let row = document.createElement('div');
+		row.setAttribute("class","row");
+
+		let select = document.createElement('select');
+		select.setAttribute('id','type');
+		select.setAttribute('class','form-control');
+		select.onchange = change();
+		select.insertAdjacentHTML('beforeend',options);
+		select.value = '0';
+
+		let foraddselect = document.createElement('div');
+		foraddselect.setAttribute('class','col-md-2 form-group');
+		foraddselect.insertAdjacentElement('beforeend', select);
+
+		let mark= document.createElement('div');
+		select.setAttribute('id','mark');
+		select.setAttribute('class','col-md-2');
+
+
+		row.insertAdjacentHTML('beforeend',inputStr);
+		row.insertAdjacentElement('beforeend',foraddselect);
+		row.insertAdjacentElement('beforeend',mark);
+
+		node.insertAdjacentElement('beforeend',row);
+		document.getElementById("addDisc").insertAdjacentElement('beforebegin', node);
+		//node.insertAdjacentHTML()
+		//document.getElementById("addDisc").insertAdjacentHTML('beforebegin', node);
+	}
+	</script>
+		<form>
+  		<div class="form-group">
+    		<label for="surname">Фамилия</label>
+    		<input type="text" class="form-control" id="surname"  placeholder="Введите имя студента">
+  		</div>
+  		<div class="form-group">
+    		<label for="name">Имя</label>
+    		<input type="text" class="form-control" id="name" placeholder="Введите фамилию студента">
+  		</div>
+  		<div class="form-group">
+    		<label for="patronymic">Отчество</label>
+    		<input type="text" class="form-control" id="patronymic"  placeholder="Введите отчество студента">
+  		</div>
+		<label for="discipline[]">Дисциплины</label>
+  	<div class="form-group" id="discipline[]">
+			<div class="row">
+				<div class="col-md-3">
+					<input type="text" class="form-control" placeholder="Название дисциплины">
+				</div>
+
+				<div id = "foraddselect" class="col-md-2 form-group">
+					<select id="type" class="form-control" onchange="change()">
+						<option value="0"selected>Тип аттестации</option>
+						<option value="1">Зачет</option>
+						<option value="2">Дифференцированный зачет</option>
+						<option value="3">Экзамен</option>
+					</select>
+				</div>
+				<div id="mark" class="col-md-2">
+
+				</div>
+			</div>
+  	</div>
+		<!-- <input type="button" class="btn btn-primary" id="addDisc" value="Добавить дисциплину" onfocus=""="addDiscipline()"> -->
+		<input class="btn btn-primary" type="button" id="addDisc" value="Добавить дисциплину" onclick="addDiscipline()">
+		<!-- <button id="addDisc" class="btn btn-primary" onclick="addDiscipline()">Добавить дисциплину</button> -->
+		<button class="btn btn-primary">Удалить дисциплину</button>
 		<!-- Навесить сюда обработчик на добавление discipline[]
 		<button class="btn btn-primary">Добавить дисциплину</button>
 		-->
-	</div>
-  </div>
-  
-  
-  <button type="submit" class="btn btn-primary">Отправить</button>
-</form>
-	</body>
+  	<button type="submit" class="btn btn-primary">Отправить</button>
+	</form>
+
+</body>
 </html>
