@@ -19,7 +19,12 @@
 		}
 
 		function addselectFORzachet() {
-		let node = document.getElementById("mark");
+
+		let xpath = document.evaluate(`//div[@id='${event.target.id}' and contains(@name, 'mark')]`, document, null,XPathResult.FIRST_ORDERED_NODE_TYPE,null);
+
+		let node = xpath.singleNodeValue;
+		console.log(node);
+		console.log(event.target.id);
 		clearNode(node);
 
 	 	var x = document.createElement("SELECT");
@@ -27,22 +32,27 @@
 		x.setAttribute("class", "form-control");
 
 	 	var z = document.createElement("OPTION");
-	    z.setAttribute("id", "1");
-	    var t = document.createTextNode("зачет");
-	    z.appendChild(t);
+	   z.setAttribute("id", "1");
+	   var t = document.createTextNode("зачет");
+	   z.appendChild(t);
 
-	    var n = document.createElement("OPTION");
-	    n.setAttribute("id", "2");
-	    var p = document.createTextNode("незачет");
-	    n.appendChild(p);
-			node.append(x);
-	   	document.getElementById("newselect").appendChild(z);
-	   	document.getElementById("newselect").appendChild(n);
+	   var n = document.createElement("OPTION");
+	   n.setAttribute("id", "2");
+	   var p = document.createTextNode("незачет");
+	   n.appendChild(p);
+		 x.appendChild(z);
+		 x.appendChild(n);
+		 node.append(x);
 	}
 
 		function addselectFORexam() {
-			let node = document.getElementById("mark");
+			let xpath = document.evaluate(`//div[@id='${event.target.id}' and contains(@name, 'mark')]`, document, null,XPathResult.FIRST_ORDERED_NODE_TYPE,null);
+
+			let node = xpath.singleNodeValue;
+			console.log(node);
+			console.log(event.target.id);
 			clearNode(node);
+
 
 			var x = document.createElement("select");
 			x.setAttribute("id", "newselect");
@@ -60,17 +70,26 @@
 		   	l.setAttribute("id", "3");
 		    var d = document.createTextNode("удовл");
 		    l.appendChild(d);
+				x.appendChild(z);
+				x.appendChild(n);
+				x.appendChild(l);
 				node.appendChild(x);
-		    document.getElementById("newselect").appendChild(z);
-	   		document.getElementById("newselect").appendChild(n);
-	   		document.getElementById("newselect").appendChild(l);
+
 	}
 
 	function change() {
-		var selectoption = document.getElementById("type").value;
+		console.log(event.target.name);
 
+		if (event.target.name == "type")
+		{
+		var selectoption = event.target.value;
 			switch (selectoption)
 			{
+				case "0":
+					let xpath = document.evaluate(`//div[@id='${event.target.id}' and contains(@name, 'mark')]`, document, null,XPathResult.FIRST_ORDERED_NODE_TYPE,null);
+					let node = xpath.singleNodeValue;
+					clearNode(node);
+					break;
 				case "1" : addselectFORzachet();
 
 				break;
@@ -79,38 +98,21 @@
 
 				break;
 			}
-
+		}
 	}
 
 	function addDiscipline()
 	{
-		// let node = `<div class="form-group" id="discipline[]">
-		// 			<div class="row">
-		// 				<div class="col-md-3">
-		// 					<input type="text" class="form-control" placeholder="Название дисциплины">
-		// 				</div>
-		//
-		// 				<div id = "foraddselect" class="col-md-2 form-group">
-		// 					<select id="type" class="form-control" onchange="change()">
-		// 						<option selected>Тип аттестации</option>
-		// 						<option value="1">Зачет</option>
-		// 						<option value="2">Дифференцированный зачет</option>
-		// 						<option value="3">Экзамен</option>
-		// 					</select>
-		// 				</div>
-		// 				<div id="mark" class="col-md-2">
-		//
-		// 				</div>
-		// 			</div>
-		//   	</div>`;
+		let numRows = document.getElementById('numRows');
 		let inputStr = `<div class="col-md-3">
-		 					<input type="text" class="form-control" placeholder="Название дисциплины">
-		 				</div>`;
-		let options = `<option value="0" selected>Тип аттестации</option>
-		 							<option value="1">Зачет</option>
-		 							<option value="2">Дифференцированный зачет</option>
-		 							<option value="3">Экзамен</option>`;
-
+										<input type="text" class="form-control" placeholder="Название дисциплины" pattern="^[А-Яа-яЁё\\s]+$">
+										</div>`;
+		let inputStrZE = `<div class="col-md-3">
+											<input type="text" class="form-control" placeholder="Количество з.е(число)" pattern="^[ 0-9]+$">
+											</div>`;
+		let numStr= `<div class="col-sm-1">
+								<label>${+numRows.value + 2}</label>
+								</div>`;
 		let node = document.createElement('div');
 
 		node.setAttribute("class","form-group");
@@ -118,34 +120,76 @@
 
 		let row = document.createElement('div');
 		row.setAttribute("class","row");
+		row.insertAdjacentHTML('afterbegin',numStr);
 
 		let select = document.createElement('select');
-		select.setAttribute('id','type');
+
+
+		select.setAttribute('id',+numRows.value + 1);
+		select.setAttribute('name','type');
+		numRows.setAttribute('value',+numRows.value + 1);
 		select.setAttribute('class','form-control');
-		select.onchange = change();
-		select.insertAdjacentHTML('beforeend',options);
-		select.value = '0';
+
+		let options = document.createElement('option');
+		options.setAttribute('value','0');
+		options.appendChild(document.createTextNode('Тип аттестации'));
+		options.setAttribute('selected','selected');
+
+		select.appendChild(options);
+
+		options = document.createElement('option');
+		options.setAttribute('value','1');
+		options.appendChild(document.createTextNode('Зачет'));
+
+		select.appendChild(options);
+
+		options = document.createElement('option');
+		options.setAttribute('value','2');
+		options.appendChild(document.createTextNode('Дифференцированный зачет'));
+
+		select.appendChild(options);
+
+		options = document.createElement('option');
+		options.setAttribute('value','3');
+		options.appendChild(document.createTextNode('Экзамен'));
+
+		select.appendChild(options);
 
 		let foraddselect = document.createElement('div');
 		foraddselect.setAttribute('class','col-md-2 form-group');
 		foraddselect.insertAdjacentElement('beforeend', select);
 
 		let mark= document.createElement('div');
-		select.setAttribute('id','mark');
-		select.setAttribute('class','col-md-2');
-
+		mark.setAttribute('id', +document.getElementById('numRows').value);
+		mark.setAttribute('class','col-md-2');
+		mark.setAttribute('name','mark');
 
 		row.insertAdjacentHTML('beforeend',inputStr);
+		row.insertAdjacentHTML('beforeend',inputStrZE);
 		row.insertAdjacentElement('beforeend',foraddselect);
 		row.insertAdjacentElement('beforeend',mark);
 
 		node.insertAdjacentElement('beforeend',row);
 		document.getElementById("addDisc").insertAdjacentElement('beforebegin', node);
-		//node.insertAdjacentHTML()
-		//document.getElementById("addDisc").insertAdjacentHTML('beforebegin', node);
+
 	}
+		function validFunction() {
+			let xpath = document.evaluate(`//select[@name='type']`, document, null,XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,null);
+			let result = true;
+			let arrayOfErrors = [];
+			for (let i = 0, length = xpath.snapshotLength; i < length; ++i) {
+	        if (xpath.snapshotItem(i).value=="0")
+					{
+						result=false;
+						arrayOfErrors.push(+xpath.snapshotItem(i).id + 1);
+					}
+	    }
+			alert(`Выберите поле "тип аттестации" в строках ${arrayOfErrors}`);
+			return result;
+			//let node = xpath.singleNodeValue;
+		}
 	</script>
-		<form>
+		<form onchange="change()" onsubmit="return validFunction()">
   		<div class="form-group">
     		<label for="surname">Фамилия</label>
     		<input type="text" class="form-control" id="surname"  placeholder="Введите имя студента">
@@ -159,27 +203,32 @@
     		<input type="text" class="form-control" id="patronymic"  placeholder="Введите отчество студента">
   		</div>
 		<label for="discipline[]">Дисциплины</label>
-  	<div class="form-group" id="discipline[]">
-			<div class="row">
-				<div class="col-md-3">
-					<input type="text" class="form-control" placeholder="Название дисциплины">
+  	<div class="form-group" id="discipline[]" >
+			<div class="row"  id='0'>
+				<div class="col-sm-1">
+					<label>1</label>
 				</div>
-
+				<div class="col-md-3">
+					<input type="text" class="form-control" placeholder="Название дисциплины" pattern="^[А-Яа-яЁё\s]+$">
+				</div>
+				<div class="col-md-3">
+					<input type="text" class="form-control" placeholder="Количество з.е(число)" pattern="^[ 0-9]+$">
+				</div>
 				<div id = "foraddselect" class="col-md-2 form-group">
-					<select id="type" class="form-control" onchange="change()">
-						<option value="0"selected>Тип аттестации</option>
+					<select id="0" name="type" class="form-control" >
+						<option value="0" selected disabled>Тип аттестации</option>
+						<!-- <optgroup label="Тип аттестации"> -->
 						<option value="1">Зачет</option>
 						<option value="2">Дифференцированный зачет</option>
 						<option value="3">Экзамен</option>
 					</select>
 				</div>
-				<div id="mark" class="col-md-2">
-
+				<div id="0" name="mark" class="col-md-2">
 				</div>
 			</div>
   	</div>
-		<!-- <input type="button" class="btn btn-primary" id="addDisc" value="Добавить дисциплину" onfocus=""="addDiscipline()"> -->
 		<input class="btn btn-primary" type="button" id="addDisc" value="Добавить дисциплину" onclick="addDiscipline()">
+		<input id="numRows" name="numRows" type="hidden" value="0">
 		<!-- <button id="addDisc" class="btn btn-primary" onclick="addDiscipline()">Добавить дисциплину</button> -->
 		<button class="btn btn-primary">Удалить дисциплину</button>
 		<!-- Навесить сюда обработчик на добавление discipline[]
