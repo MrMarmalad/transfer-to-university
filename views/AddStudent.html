@@ -111,8 +111,14 @@
 											<input type="text" class="form-control" placeholder="Количество з.е(число)" pattern="^[ 0-9]+$">
 											</div>`;
 		let numStr= `<div class="col-sm-1">
-								<label>${+numRows.value + 2}</label>
+								<label>${+numRows.value + 2})&nbsp;&nbsp;&nbsp;&nbsp;</label>
+								<input type="checkbox" name="delete" id="${+numRows.value + 1}">Удалить
 								</div>`;
+
+								// <div class="col-sm-1">
+								// 	<label>1)&nbsp;&nbsp;&nbsp;&nbsp;</label>
+								// 	<input type="checkbox" name="delete" value="0">Удалить
+								// </div>
 		let node = document.createElement('div');
 
 		node.setAttribute("class","form-group");
@@ -186,7 +192,18 @@
 	    }
 			alert(`Выберите поле "тип аттестации" в строках ${arrayOfErrors}`);
 			return result;
-			//let node = xpath.singleNodeValue;
+		}
+		function delDiscipline()
+		{
+			// let xpath = document.evaluate(`//checkbox[@checked]`)
+			let elements = document.querySelectorAll(`input:checked[type='checkbox']`);
+
+			for (var i = 0; i<elements.length; ++i)
+			{
+				//console.log(elements[i].parentNode.parentNode.parentNode);
+				elements[i].parentNode.parentNode.parentNode.remove();
+				//console.log(elements[i].id);
+			}
 		}
 	</script>
 		<form onchange="change()" onsubmit="return validFunction()">
@@ -206,7 +223,8 @@
   	<div class="form-group" id="discipline[]" >
 			<div class="row"  id='0'>
 				<div class="col-sm-1">
-					<label>1</label>
+					<label>1)&nbsp;&nbsp;&nbsp;&nbsp;</label>
+					<input type="checkbox" name="delete" id="0">Удалить
 				</div>
 				<div class="col-md-3">
 					<input type="text" class="form-control" placeholder="Название дисциплины" pattern="^[А-Яа-яЁё\s]+$">
@@ -217,7 +235,6 @@
 				<div id = "foraddselect" class="col-md-2 form-group">
 					<select id="0" name="type" class="form-control" >
 						<option value="0" selected disabled>Тип аттестации</option>
-						<!-- <optgroup label="Тип аттестации"> -->
 						<option value="1">Зачет</option>
 						<option value="2">Дифференцированный зачет</option>
 						<option value="3">Экзамен</option>
@@ -229,11 +246,9 @@
   	</div>
 		<input class="btn btn-primary" type="button" id="addDisc" value="Добавить дисциплину" onclick="addDiscipline()">
 		<input id="numRows" name="numRows" type="hidden" value="0">
-		<!-- <button id="addDisc" class="btn btn-primary" onclick="addDiscipline()">Добавить дисциплину</button> -->
-		<button class="btn btn-primary">Удалить дисциплину</button>
-		<!-- Навесить сюда обработчик на добавление discipline[]
-		<button class="btn btn-primary">Добавить дисциплину</button>
-		-->
+		<input class="btn btn-primary" type="button" name="delDisc" id="0" value="Удалить отмеченные" onclick="delDiscipline()">
+		<!-- <input class="btn btn-primary" type="button" name="delDisc" id="0" value="Удалить" onclick="delDiscipline()"> -->
+		<!-- <button class="btn btn-primary">Удалить дисциплину</button> -->
   	<button type="submit" class="btn btn-primary">Отправить</button>
 	</form>
 
