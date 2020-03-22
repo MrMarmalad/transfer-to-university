@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<title>Главная страница</title>
+</head>
+	<body >
+		<div class="topnav">
+			  <img id = "one" src="1.jpg">
+			  <a class="active" href="#entry">Войти</a>
+			  <a href="#reg">Регистрация</a>
+		</div>
+			<hr id = "hr1">
+
+		  		<div id="h2about">
+				 	<h2>Перевод и Восстановление</h2>
+						
+				</div>	
+				<div id = "textabout">
+					<h3>Для уточнения возможности перевода в МГТУ ГА из другого ВУЗа РФ, сравнения учебных планов и наличия вакантных мест - вам необходимо связаться с ответственным за переводы в деканате соответствующего факультета.</h3>
+				</div>
+						<!--<footer>
+							<hr id = "hr2">
+							<p>Текст</p>
+						</footer>-->
+						<!-- Footer -->
+						<div id="abouth3">
+							<h3>Ниже предоставлены учебные планы для ознакомления.</h3>
+						</div>
+								<!--Список с учебными планами-->
+								<div id="hrefforstudyplan"> 
+									<ul>
+										<li>
+											<a href="">эвм1</a>
+										</li>
+										<li>
+											<a href="">эвм2</a>
+										</li>
+										<li>
+											<a href="">эвм3</a>
+										</li>
+										<li>
+											<a href="">эвм4</a>
+										</li>
+									</ul>
+								</div>
+				
+				<footer class="page-footer font-small blue pt-4">
+				<hr id = "hr2">
+				  <!-- Footer Links -->
+				  <div class="container-fluid text-center text-md-left">
+				    <!-- Grid row -->
+				    <div class="row">
+				      <!-- Grid column -->
+					      <div class="col-md-6 mt-md-0 mt-3">
+					        <!-- Content -->
+					        <h5 class="text-uppercase">Контент</h5>
+					        <p>Текст</p>
+					      </div>
+				      <!-- Grid column -->
+				      <hr class="clearfix w-100 d-md-none pb-3">
+				      <!-- Grid column -->
+					      <div class="col-md-3 mb-md-0 mb-3">
+					        <!-- Links -->
+					        <h5 class="text-uppercase">Контакты</h5>
+					        <ul class="list-unstyled">
+					          <li>
+					            <a href="#!">89645202295</a>
+					          </li>
+					        </ul>
+					      </div>
+				      <!-- Grid column -->
+				      <!-- Grid column -->
+					      <div class="col-md-3 mb-md-0 mb-3">
+					        <!-- Links -->
+					        <h5 class="text-uppercase">Адрес</h5>
+					        <ul class="list-unstyled">
+					          <li>
+					            <a href="#!">МОСКВА</a>
+					          </li>
+					        </ul>
+					      </div>
+				      <!-- Grid column -->
+				    </div>
+				    <!-- Grid row -->
+				  </div>
+				  <!-- Footer Links -->
+				  <!-- Copyright -->
+				  <div class="footer-copyright text-center py-3">© 2020 Copyright:
+				    <a href="http://www.mstuca.ru/"> МГТУГА</a>
+				  </div>
+				  <!-- Copyright -->
+				</footer>
+				<!-- Footer -->
+	</body>
+</html>
