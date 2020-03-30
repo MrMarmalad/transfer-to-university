@@ -19,8 +19,8 @@ class Excel
     $this->filename = $filename;
     $this->path_to_excel = $path;
     $inputFileName = __DIR__ . $path . $filename;
-    $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
-    $this->spreadsheet = $reader->load($inputFileName);
+    $this->reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+    $this->spreadsheet = $this->reader->load($inputFileName);
 
   }
 
@@ -33,12 +33,12 @@ class Excel
       return 1;
     }
     $this->spreadsheet->setActiveSheetIndex($num);
-    $this->worksheet = $this->spreadsheet->getActiveSheet();//->toArray(null, true, true, true);
-    var_dump("setSheet() complete");
+    $this->worksheet = $this->spreadsheet->getActiveSheet();//->toArray(NULL, TRUE, TRUE, TRUE);
+    //var_dump("setSheet() complete");
   }
 
 
-  public function readCol(int $col, int $start=1, int $stop=null, callable $callbackFilter=null)
+  public function readCol(int $col, int $start=1, int $stop=NULL, callable $callbackFilter=NULL)
   {
     $this->last_data=[];
     if (empty($this->worksheet))
@@ -46,14 +46,14 @@ class Excel
       echo "Worksheet is empty <br>";
       return;
     }
-    if ($stop==null)
+    if ($stop==NULL)
     {
       $stop=$this->worksheet->getHighestRow();
     }
     $retVal = array();
     //////////////////////////
 
-    //$callbackFilter=function($style){return true;};
+    //$callbackFilter=function($style){return TRUE;};
     //////////////////////////////
     for ($i=$start; $i<=$stop; $i++)
     {
@@ -79,7 +79,7 @@ class Excel
     // var_dump($this->last_data);
     return $retVal;
   }
-  public function readRow(int $row, iterable $cols=null, callable $callbackFilter=null)
+  public function readRow(int $row, iterable $cols=NULL, callable $callbackFilter=NULL)
   {
     $this->last_data=[];
     if (empty($this->worksheet))
@@ -87,12 +87,12 @@ class Excel
       echo "Worksheet is empty <br>";
       return;
     }
-    if ($cols == null)
+    if ($cols == NULL)
     {
       $colLen =\PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($this->worksheet->getHighestColumn());
       for ($i=0; $i<=$colLen; $i++)
       {
-        if ($callbackFilter != null)
+        if ($callbackFilter != NULL)
         {
           $cell= $this->worksheet->getCellByColumnAndRow($i,$row);
           if ($callbackFilter($cell))
@@ -112,7 +112,7 @@ class Excel
     else {
       foreach ($cols as $key => $value)
       {
-        if ($callbackFilter != null)
+        if ($callbackFilter != NULL)
         {
           $cell= $this->worksheet->getCellByColumnAndRow($value, $row);
           if ($callbackFilter($cell))
