@@ -3,17 +3,20 @@
 
 error_reporting(E_ALL);
  ini_set('display_errors', 'On');
- require_once('vendor\\autoload.php');
+ require_once(__DIR__ . '\\..\\vendor\\autoload.php');
  // require_once (__DIR__."\\php\\readxl.php");
  // require_once (__DIR__."\\php\\settings.php");
 require_once (__DIR__."\\readxl.php");
 require_once (__DIR__."\\settings.php");
 
- function printPlan($filename)
+ function readPlan($filename, $path = "\\..\\excel\\")
 {
-  $plan = new Excel($filename, "\\..\\excel\\");
+  $plan = new Excel($filename, $path);
   $plan->reader->setReadEmptyCells(FALSE);
+  // echo "$plan->path_to_excel<br>$plan->filename<br>";
+
   $plan->setSheet(1);
+  //echo "$plan->worksheet<br>";
   // $one=$plan->readRow(10,[2,3,4,5,6]);
   // var_dump($one);
  $itog = array();
@@ -22,7 +25,7 @@ require_once (__DIR__."\\settings.php");
  $readColsArray=[2,3,4,5,6];
  $colsNotNull=[3,4,5,6];
  $numRows=$plan->worksheet->getHighestDataRow() ;//+ 100;
- echo $numRows . "<br>";
+ //echo $numRows . "<br>";
  $skip=TRUE;
  for ($i=$startRow; $i<=$numRows; $i++)
  {
@@ -39,7 +42,7 @@ require_once (__DIR__."\\settings.php");
    //echo $plan->last_data[2]->getValue() . '   ' . is_null($plan->last_data[2]->getStyle()->getFont()->getItalic()) . "<br>";
    if ($plan->last_data[2]->getStyle()->getFont()->getItalic() == TRUE)
    {
-     echo $plan->last_data[2]->getStyle()->getFont()->getItalic() . "GET ITALIC<br>";
+     //echo $plan->last_data[2]->getStyle()->getFont()->getItalic() . "GET ITALIC<br>";
      $skip=TRUE;
 
    }
@@ -50,12 +53,16 @@ require_once (__DIR__."\\settings.php");
 
 
    }
- foreach ($itog as $key => $value) {
-   var_dump($value);
-   echo "<br>";
- }
+ // foreach ($itog as $key => $value) {
+ //   var_dump($value);
+ //   echo "<br>";
+ // }
  return $itog;
  }
 
+//readPlan('4.xlsx');
+//readPlan('tmpXLFile.xlsx','\\..\\excel\\tempFiles\\');
+// include_once (__DIR__ . '\\..\\views\\showFile.php');
+// include_once (__DIR__ . '\\..\\views\\template.php');
 
  ?>
