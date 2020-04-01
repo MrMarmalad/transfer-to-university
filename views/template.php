@@ -9,6 +9,7 @@
 </head>
 
 <body >
+	<div class="container-fluid">
 	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 <a class="navbar-brand" href="#">
 	 <img src="../resources/mstucaEmblem.png" width="100" height="125" class="d-inline-block align-top" alt="">
@@ -48,15 +49,25 @@
 	</div>
 </div>
 
-<footer class="page-footer font-small ">
+<div class="container-fluid">
+	<div class="row">
+		<div class="col">
+			<footer class="page-footer font-small ">
 
-  <!-- Copyright -->
-  <div class="footer-copyright text-center py-3 fixed-bottom blue">© 2020 Copyright:
-    <a href="http://www.mstuca.ru/"> МГТУГА</a>
-  </div>
-  <!-- Copyright -->
+			  <!-- Copyright -->
+			  <div class="footer-copyright text-center py-3  blue">© 2020 Copyright:
+			    <a href="http://www.mstuca.ru/"> МГТУГА</a>
+			  </div>
+			  <!-- Copyright -->
 
-</footer>
+			</footer>
+		</div>
+	</div>
+</div>
+
+
+</div>
+
 <!-- Footer -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

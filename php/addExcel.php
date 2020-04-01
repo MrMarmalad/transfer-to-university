@@ -8,10 +8,10 @@ use \PhpOffice\PhpSpreadsheet\Reader\IReader;
 function saveFile(string $uploaddir=NULL)
 {
 
-
+  $dir='\\..\\excel\\tempFiles\\';
   if ($uploaddir == NULL)
   {
-  $uploaddir = __DIR__ . '\\..\\excel\\tempFiles\\';
+  $uploaddir = __DIR__ . $dir;
   }
   $tmpFname = "tmpXLFile.xlsx";
   // $uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
@@ -34,7 +34,10 @@ function saveFile(string $uploaddir=NULL)
   if ($reader->canRead($uploadfile) == TRUE)
   {
     ///ЛОГИКА ПРОДОЛЖАЕТСЯ
-    echo "FILE IS READABLE<br>";
+    //echo "FILE IS READABLE<br>";
+    require_once(__DIR__."\\..\\views\\showFile.php");
+    $content=showFile($tmpFname, $dir);
+    require_once(__DIR__."\\..\\views\\template.php");
   }
   else {
     ///НЕЧИТАЕМЫЙ ФАЙЛ, УДАЛЯЕМ ЕГО, ПЕРЕКИДЫВАЕМ НА ПРЕДЫДУЩУЮ СТРАНИЦУ

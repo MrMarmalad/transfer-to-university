@@ -53,15 +53,21 @@ require_once (__DIR__."\\settings.php");
 
 
    }
- // foreach ($itog as $key => $value) {
- //   var_dump($value);
- //   echo "<br>";
- // }
+
  return $itog;
  }
 
 //readPlan('4.xlsx');
-//readPlan('tmpXLFile.xlsx','\\..\\excel\\tempFiles\\');
+
+// $itog = readPlan('tmpXLFile.xlsx','\\..\\excel\\tempFiles\\');
+// foreach ($itog as $key => $value) {
+//   echo "$key     ";
+//   var_dump($value);
+//   echo "<br>";
+// }
+
+
+
 // include_once (__DIR__ . '\\..\\views\\showFile.php');
 // include_once (__DIR__ . '\\..\\views\\template.php');
 
