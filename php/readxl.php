@@ -33,8 +33,7 @@ class Excel
       return 1;
     }
     $this->spreadsheet->setActiveSheetIndex($num);
-    $this->worksheet = $this->spreadsheet->getActiveSheet();//->toArray(NULL, TRUE, TRUE, TRUE);
-    //var_dump("setSheet() complete");
+    $this->worksheet = $this->spreadsheet->getActiveSheet();
   }
 
 

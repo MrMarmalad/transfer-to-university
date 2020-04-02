@@ -18,6 +18,31 @@ function showFile($filename, $path)
   $content= <<<FORM
   <form action="\\..\\php\\applyChanges.php" method="POST">
     <div class="container-fluid border  border-dark">
+
+    <div class="form-group row">
+      <div class="col-md-12">
+        <label for="fio">Ф.И.О студента</label>
+        <input type="text" class="form-control" aria-describedby="fioHelp" name="fio" id="fio" placeholder="Введите ФИО" pattern="^[А-Яа-яЁё\s]+$">
+        <small id="fioHelp" class="form-text text-muted">Ввод осуществляется кириллицей через пробел</small>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="direction">Направление/специальность</label>
+      <select class="form-control" name="direction" id="direction">
+        <option value="09.03.01 Информатика и вычислительная техника">09.03.01 Информатика и вычислительная техника</option>
+        <option value="01.03.04 Прикладная математика">01.03.04 Прикладная математика</option>
+        <option value="10.05.02 Информационная безопасность телекоммуникационных сетей">10.05.02 Информационная безопасность телекоммуникационных сетей</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="educationForm">Форма обучения</label>
+      <select class="form-control" name="educationForm" id="educationForm">
+        <option value="Очная">Очная</option>
+        <option value="Заочная">Заочная</option>
+        <option value="Очно-заочная">Очно-заочная</option>
+      </select>
+    </div>
 FORM;
   foreach ($excel as $key => $array) {
   //  foreach ($array as $index => $value) {
