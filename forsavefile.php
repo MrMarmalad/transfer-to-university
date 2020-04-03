@@ -16,8 +16,9 @@
        		<ul class="list-unstyled">        	          
 <?php
 function savefiles ($path) {
+	$dir = __DIR__ . $path; 
   //  $dir = '\\..\\excel\\tempFiles\\';
-    $files = scandir('C:\server\OSPanel\domains\IT-kursovaya-master\excel\tempFiles');//Поменять путь, когда будем закидывать на хостинг, по-другому не работает
+    $files = scandir($dir);//Поменять путь, когда будем закидывать на хостинг, по-другому не работает
     array_shift($files); // удаляем из массива '.'
     array_shift($files); // удаляем из массива '..'
     sort($files); //Сортировка по названию.
@@ -33,7 +34,8 @@ function savefiles ($path) {
         }
     }
  }  		
-	savefiles('\\..\\excel\\tempFiles\\');
+ 	savefiles('\\..\\excel\\tempFiles\\')
+//	savefiles('C:\server\OSPanel\domains\IT-kursovaya-master\excel\tempFiles');
 	?>
 	 	
 	 		</ul>
