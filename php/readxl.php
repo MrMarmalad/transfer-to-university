@@ -12,15 +12,18 @@ class Excel
   public $filename;
   public $sheetData;
   public $worksheet;
-
   public $num;
-  public function __construct($filename, $path)
+  public $maxColLen;
+  public $writer;
+  //public $readRows = [];
+  public function __construct($filename, $path, $flag="READ")
   {
     $this->filename = $filename;
     $this->path_to_excel = $path;
     $inputFileName = __DIR__ . $path . $filename;
     $this->reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
     $this->spreadsheet = $this->reader->load($inputFileName);
+    $this->writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($this->spreadsheet);
 
   }
 
@@ -34,6 +37,9 @@ class Excel
     }
     $this->spreadsheet->setActiveSheetIndex($num);
     $this->worksheet = $this->spreadsheet->getActiveSheet();
+    $this->maxColLen =$this->worksheet->getHighestRow();
+    // echo $this->worksheet-> . "<br>";
+    // echo "$this->maxColLen";
   }
 
 
@@ -80,6 +86,7 @@ class Excel
   }
   public function readRow(int $row, iterable $cols=NULL, callable $callbackFilter=NULL)
   {
+    $this->readRows[]=$row;
     $this->last_data=[];
     if (empty($this->worksheet))
     {
@@ -128,6 +135,32 @@ class Excel
       }
     }
     return $retVal;
+  }
+  public function writeRow($row, iterable $cols, iterable $values=NULL, $numSheet = NULL)
+  {
+      if ($numSheet != NULL)
+      {
+        $this->setSheet($numSheet);
+      }
+      if (!empty($values))
+      {
+        $cols = array_combine($cols, $values);
+      }
+      foreach ($cols as $col => $value) {
+        $this->worksheet->setCellValueByColumnAndRow($col, $row, $value);
+      }
+      return 0;
+  }
+  public function cleanCols($row, iterable $cols)
+  {
+    if (!isset($this->writer))
+    {
+      return 1;
+    }
+    foreach ($cols as $cleanCol) {
+        $this->worksheet->setCellValueByColumnAndRow($cleanCol, $row, NULL);
+    }
+
   }
 }
  ?>

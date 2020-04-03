@@ -21,7 +21,6 @@ require_once (__DIR__."\\settings.php");
   // var_dump($one);
  $itog = array();
  $startRow=10;
- $i=10;
  $readColsArray=[2,3,4,5,6];
  $colsNotNull=[3,4,5,6];
  $numRows=$plan->worksheet->getHighestDataRow() ;//+ 100;
@@ -49,6 +48,7 @@ require_once (__DIR__."\\settings.php");
    if ($skip == FALSE)
    {
      $itog[$i]=$row;
+     //$readRows[]=$i;
    }
 
 
