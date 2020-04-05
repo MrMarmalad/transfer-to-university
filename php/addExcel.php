@@ -13,9 +13,10 @@ function saveFile(string $uploaddir=NULL)
   {
   $uploaddir = __DIR__ . $dir;
   }
-  $tmpFname = "tmpXLFile.xlsx";
+  //$tmpFname = "tmpXLFile.xlsx";
+  $tmpFname = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
   // $uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
-  $uploadfile = $uploaddir . $tmpFname;
+  $uploadfile = $uploaddir . $tmpFname . '.xlsx';
   //echo $uploadfile . is_uploaded_file($_FILES['tmpFile']['tmp_name']). '<pre>';
   // if () {
   //     echo "Файл корректен и был успешно загружен.\n";
@@ -35,12 +36,28 @@ function saveFile(string $uploaddir=NULL)
   {
     ///ЛОГИКА ПРОДОЛЖАЕТСЯ
     //echo "FILE IS READABLE<br>";
+    setcookie("filename", $tmpFname);
+    $fd = fopen (__DIR__. "\\..\\resources\\fileuptime.txt", "a+");
+    while(!feof($fd))
+    {
+    $str = fgets($fd);
+    echo "$str<br>";
+    $date = preg_grep("~\d{4}(-|\/)\d{2}(-|\/)\d{2}~", $str);
+    $time = preg_grep("~\d{2}:\d{2}~", $str);
+    //$date = trim(preg_grep("", $str, PREG_GREP_INVERT));
+    $fname = trim(preg_grep("~\d{2}:\d{2}~",preg_grep("~\d{4}(-|\/)\d{2}(-|\/)\d{2}~", $str, PREG_GREP_INVERT), PREG_GREP_INVERT));
+    echo "$date<br>";
+    echo "$time<br>";
+    echo "$fname<br>";
+    }
     require_once(__DIR__."\\..\\views\\showFile.php");
     $content=showFile($tmpFname, $dir);
     require_once(__DIR__."\\..\\views\\template.php");
+    fwrite ($fd, "$tmpFname " . date("Y-m-d H:i"));
   }
   else {
     ///НЕЧИТАЕМЫЙ ФАЙЛ, УДАЛЯЕМ ЕГО, ПЕРЕКИДЫВАЕМ НА ПРЕДЫДУЩУЮ СТРАНИЦУ
+    //unlink($uploadfile);
     require_once(__DIR__."\\..\\views\\backButton.php");
     require_once(__DIR__."\\..\\views\\template.php");
     unlink ($uploadfile);
@@ -48,8 +65,6 @@ function saveFile(string $uploaddir=NULL)
   }
 
 }
-
-
 saveFile();
 
 
