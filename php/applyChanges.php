@@ -30,8 +30,9 @@ function formatValues(iterable $strs)
 
 
 
-function applyChanges(string $fname="tmpXLFile.xlsx", string $path="\\..\\excel\\tempFiles\\")
+function applyChanges( string $path="\\..\\excel\\tempFiles\\")
 {
+  $fname = $_COOKIE["filename"];
   $excel = new Excel($fname, $path);
 
 
@@ -135,8 +136,11 @@ function applyChanges(string $fname="tmpXLFile.xlsx", string $path="\\..\\excel\
 
 
       }
-        $excel->writer->save(__DIR__ . $path . "test1.xlsx");
+        $excel->writer->save(__DIR__ . $path . $fname);
     }
 
 applyChanges();
+require_once (__DIR__ . "\\..\\views\\saveFile.php");
+$content = savefiles([$_COOKIE["filename"]]);
+require_once (__DIR__ . "\\..\\views\\template.php");
  ?>
