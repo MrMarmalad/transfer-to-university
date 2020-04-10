@@ -31,6 +31,25 @@ require_once (__DIR__."\\settings.php");
    $row=[];
    $skip=TRUE;
    $row=$plan->readRow($i,$readColsArray);
+   if (($row[2] == 'Обязательные дисциплины') || ($row[2] == "Дисциплины по выбору") || ($row[2] == 'Факультативы'))
+   {
+     $itog[$i]=$row;
+     //echo "END_RAZDEL";
+   }
+   // switch ($row[2]) {
+   //   case 'Обязательные дисциплины':
+   //     $itog[$i]=$row;
+   //     echo "END_RAZDEL";
+   //     break;
+   //   case 'Дисциплины по выбору':
+   //       $itog[$i]=$row;
+   //       echo "END_RAZDEL";
+   //     break;
+   //   case 'Факультативы':
+   //         $itog[$i]=$row;
+   //         echo "END_RAZDEL";
+   //    break;
+   // }
    foreach ($colsNotNull as $value) {
      if (!(is_null($row[$value])))
      {

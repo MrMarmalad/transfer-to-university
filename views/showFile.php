@@ -43,35 +43,65 @@ function showFile($filename, $path)
         <option value="Очно-заочная">Очно-заочная</option>
       </select>
     </div>
+    <div class="btn-group" role="group" aria-label="Basic example">
+      <button type="button" class="btn btn-primary base_js">Базовая часть</button>
+      <button type="button" class="btn btn-primary required_js">Обязательные дисциплины</button>
+      <button type="button" class="btn btn-primary optionally_js">Дисциплины по выбору</button>
+      <button type="button" class="btn btn-primary electives_js">Факультативы</button>
+    </div>
 FORM;
+$hiddenClass = "basic";
   foreach ($excel as $key => $array) {
+
   //  foreach ($array as $index => $value) {
       if (($array[3] == "х") || ($array[4] == "х") || ($array[5] == "х") || ($array[6] == "х"))
       {
         //echo "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         continue;
       }
+      //($row[2] == 'Обязательные дисциплины') || ($row[2] == "Дисциплины по выбору") || ($row[2] == 'Факультативы')
+      if ($array[2] == "Обязательные дисциплины")
+      {
+        $hiddenClass="required";
+        //echo $hiddenClass;
+        continue;
+        //$content .= "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+      }
+      if ($array[2] == "Дисциплины по выбору")
+      {
+        $hiddenClass="optionally";
+        //echo $hiddenClass;
+        continue;
+        //$content .= "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+      }
+      if ($array[2] == "Факультативы")
+      {
+        $hiddenClass="electives";
+        //echo $hiddenClass;
+        continue;
+        //$content .= "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+      }
       $content .= <<<NAME
-        <div class="form-group row ">
-          <label for="staticEmail" class="col-md-6 col-form-label">Название предмета</label>
-          <div class="col-md-6">
-            <input type="text" readonly class="form-control-plaintext"  value="${array[2]}">
+        <div class="form-group row ${hiddenClass}">
+          <label for="staticEmail" class="col-md-3 col-form-label ${hiddenClass}">Название предмета</label>
+          <div class="col-md">
+            <input type="text" readonly class="form-control-plaintext ${hiddenClass}"  value="${array[2]}">
           </div>
         </div>
-        <div class="container-fluid border ">
+        <div class="container-fluid border ${hiddenClass}">
 NAME;
       if ($array[3] != NULL)
       {
       $content .=<<< EXAM
-      <div class="form-group row">
-      <label for="inputPassword" class="col-md-6 col-form-label">Экзамены</label>
-      <div class="form-check">
+      <div class="form-group row ${hiddenClass}">
+      <label for="inputPassword" class="col-md-12 col-form-label ${hiddenClass}">Экзамены</label>
+      <div class="form-check ${hiddenClass}">
 EXAM;
       $tmpStr=split($array[3]);
       foreach ($tmpStr as $value) {
       $content .= <<<ALLEXAMS
-        <input name="exam${key}[]" class="form-check-input" type="checkbox" value="${value}" id="defaultCheck1" checked="checked">
-          <label class="form-check-label" for="defaultCheck1">
+        <input name="exam${key}[]" class="form-check-input ${hiddenClass}" type="checkbox" value="${value}" id="defaultCheck1" checked="checked">
+          <label class="form-check-label ${hiddenClass}" for="defaultCheck1">
           ${value} семестр
           </label>
           <br>
@@ -86,15 +116,15 @@ ENDEXAMS;
       if ($array[4] != NULL)
       {
       $content .= <<< ZACHET
-      <div class="form-group row ">
-      <label for="inputPassword" class="col-md-6 col-form-label">Зачеты</label>
-        <div class="form-check">
+      <div class="form-group row ${hiddenClass}">
+      <label for="inputPassword" class="col-md-12 col-form-label ${hiddenClass}">Зачеты</label>
+        <div class="form-check ${hiddenClass}">
 ZACHET;
       $tmpStr=split($array[4]);
       foreach ($tmpStr as $value) {
       $content .=<<<ALLZACHET
-          <input name="zachet${key}[]" class="form-check-input" type="checkbox" value="${value}" id="defaultCheck1" checked="checked">
-          <label class="form-check-label" for="defaultCheck1">
+          <input name="zachet${key}[]" class="form-check-input ${hiddenClass}" type="checkbox" value="${value}" id="defaultCheck1" checked="checked">
+          <label class="form-check-label ${hiddenClass}" for="defaultCheck1">
             ${value} семестр
           </label>
           <br>
@@ -109,11 +139,11 @@ ENDZACHET;
       if ($array[5] != NULL)
       {
       $content .= <<< KP
-      <div class="form-group row ">
-      <label for="inputPassword" class="col-md-6 col-form-label">Курсовые проекты</label>
-      <div class="form-check">
-        <input name="kp${key}[]" class="form-check-input" type="checkbox" value="${array[5]}" id="defaultCheck1" checked="checked">
-        <label class="form-check-label" for="defaultCheck1">
+      <div class="form-group row ${hiddenClass}">
+      <label for="inputPassword" class="col-md-12 col-form-label ${hiddenClass}">Курсовые проекты</label>
+      <div class="form-check ${hiddenClass}">
+        <input name="kp${key}[]" class="form-check-input ${hiddenClass}" type="checkbox" value="${array[5]}" id="defaultCheck1" checked="checked">
+        <label class="form-check-label ${hiddenClass}" for="defaultCheck1">
           ${array[5]}
         </label>
         <br>
@@ -124,12 +154,12 @@ KP;
       if ($array[6] != NULL)
       {
       $content .= <<< KR
-      <div class="form-group row ">
-      <label for="inputPassword" class="col-md-6 col-form-label">Курсовые работы</label>
-      <div class="form-check">
-        <input name="kr${key}[]" class="form-check-input" type="checkbox" value="${array[6]}" id="defaultCheck1" checked="checked">
-        <label class="form-check-label" for="defaultCheck1">
-          ${array[6]}
+      <div class="form-group row ${hiddenClass}">
+      <label for="inputPassword" class="col-md-12 col-form-label ${hiddenClass}">Курсовые работы</label>
+      <div class="form-check ${hiddenClass}">
+        <input name="kr${key}[]" class="form-check-input ${hiddenClass}" type="checkbox" value="${array[6]}" id="defaultCheck1" checked="checked">
+        <label class="form-check-label ${hiddenClass}" for="defaultCheck1">
+          ${array[6]} семестр
         </label>
         <br>
         </div>
@@ -148,6 +178,7 @@ KR;
 
     </form>
 ENDFORM;
+      //$content .= "<script src=\"\\..\\resources\\categories.js\"></script>";
 return $content;
 }
 
